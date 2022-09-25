@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace ExampleMod.Content.Projectiles
 {
 	// ExampleYoyo and ExampleYoyoProjectile show the minimum amound of code needed to create a Yoyo using the existing vanilla code and behavior.
-	// ExampleAdvancedYoyo and ExampleAdvancedYoyoProjectile need to be consulted if more advanced customization is required.
+	// ExampleAdvancedYoyo and ExampleAdvancedYoyoProjectile need to be consulted if more advanced customization is required. (TO BE IMPLEMENTED)
 
 	// ExampleYoyoProjectile is a copy of the Cascade yoyo projectile.
 	public class ExampleYoyoProjectile : ModProjectile
@@ -39,11 +39,11 @@ namespace ExampleMod.Content.Projectiles
 			Projectile.scale = 1f; // How large to render the projectile graphic. Some vanilla yoyos have a larger scale, such as the Kraken at 1.2f or the Eye of Cthulhu at 1.15f.
 			Projectile.DamageType = DamageClass.Melee; // This projectile deals Melee damage.
 
-			// Here we use the yoyo aiStyle(99). Some parts of the projectile's unique behaviours we will have to adapt if we want to use them.
+			// Here we use the Yoyo aiStyle(99). Some parts of the Cascade's unique behaviours we will have to adapt ourselves if we want to use them.
 			Projectile.aiStyle = ProjAIStyleID.Yoyo;
+			// It is highly recommended for beginners to use the Yoyo aiStyle, as yoyos are rather complicated. If you still wish to create your own fully customizable ai, check out ExampleAdvancedYoyo and ExampleAdvancedYoyoProjectile. (TO BE IMPLEMENTED)
 
-			// For some reason, trying to copy any yoyo's unique ai behaviours breaks the Yoyo Glove functionality
-			//AIType = ProjectileID.Cascade;
+			//AIType = ProjectileID.Cascade; // For some reason, trying to copy any yoyo's unique ai behaviours breaks the Yoyo Glove functionality
 		}
 
 		// The following Methods are additional behaviours of the Cascade that are not automatically inherited through the use of Projectile.aiStyle.
@@ -55,7 +55,7 @@ namespace ExampleMod.Content.Projectiles
 			}
 		}
 
-		// The Cascade releases glowing dust particles, so let's include that as well
+		// The Cascade also releases glowing dust particles, so let's include that as well
 		public override void PostAI() {
 			if (Main.rand.NextBool(6)) { // Every frame has a 1 in 6 chance to release a dust particle
 				int fireDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);

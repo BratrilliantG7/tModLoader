@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace ExampleMod.Content.Items.Weapons
 {
 	// ExampleYoyo and ExampleYoyoProjectile show the minimum amound of code needed to create a Yoyo using the existing vanilla code and behavior.
-	// ExampleAdvancedYoyo and ExampleAdvancedYoyoProjectile need to be consulted if more advanced customization is required.
+	// ExampleAdvancedYoyo and ExampleAdvancedYoyoProjectile need to be consulted if more advanced customization is required. (TO BE IMPLEMENTED)
 
 	// ExampleYoyo is a copy of the Cascade yoyo.
 	public class ExampleYoyo : ModItem {
@@ -16,11 +16,12 @@ namespace ExampleMod.Content.Items.Weapons
 			SacrificeTotal = 1; // The number of items needed to be sacrificed in the Journey Mode menu to get infinite access to them.
 
 			// The following sets are used for Gamepad controls and nothing else.
+
 			// Yoyo is used in the gamepad reach check in conjunction with a yoyoString check to add the String's extra range to the cursor.
 			ItemID.Sets.Yoyo[Item.type] = true;
 
 			// GamepadExtraRange is how much extra range (in Tiles) should be given to the gamepad cursor while channeling to allow free movement of the yoyo.
-			// Vanilla yoyos typically keep this number at just over the yoyo's max reach.
+			// Vanilla yoyos typically keep this number at just over the yoyo's max reach in tiles.
 			// To find what number you should use, take your desired Yoyo range (see YoyosMaximumRange in ExampleYoyoProjectile and divide that by 16, rounded up) and subtract the player's base range of 5.
 			// For example, the Cascade has a YoyosMaximumRange of 235. Divided by 16 and rounded up is 15, then subtract 5 to get 10, which is the same value the Cascade is set to have in vanilla.
 			ItemID.Sets.GamepadExtraRange[Item.type] = 10;
@@ -48,7 +49,7 @@ namespace ExampleMod.Content.Items.Weapons
 			Item.noMelee = true; // Prevents the use animation from damaging anything, that's what the yoyo projectile is for.
 			Item.noUseGraphic = true; // Hides the Yoyo graphic in the player's hands
 
-			Item.UseSound = SoundID.Item1; // The sound the item makes when used.
+			Item.UseSound = SoundID.Item1; // The sound the item makes when used. Every vanilla yoyo uses Item1.
 			Item.value = Item.sellPrice(silver: 1, copper: 80); // This yoyo sells for 1 silver and 80 copper.
 			Item.rare = ItemRarityID.Orange; // The color of the name of your item.
 
