@@ -39,16 +39,27 @@ namespace ExampleMod.Content.Projectiles
 			Projectile.scale = 1f; // How large to render the projectile graphic. Some vanilla yoyos have a larger scale, such as the Kraken at 1.2f or the Eye of Cthulhu at 1.15f.
 			Projectile.DamageType = DamageClass.Melee; // This projectile deals Melee damage.
 
-			// Here we use the yoyo aiStyle(99) and copy the Cascade's unique AI code, which only covers the dust particles it generates. We will have to adapt other parts of the code that we want to use.
+			// Here we use the yoyo aiStyle(99). Some parts of the projectile's unique behaviours we will have to adapt if we want to use them.
 			Projectile.aiStyle = ProjAIStyleID.Yoyo;
-			AIType = ProjectileID.Cascade;
+
+			// For some reason, trying to copy any yoyo's unique ai behaviours breaks the Yoyo Glove functionality
+			//AIType = ProjectileID.Cascade;
 		}
 
-		// The following Method is an additional behaviour of the Cascade that is not automatically inherited through the use of Projectile.aiStyle and AIType.
+		// The following Methods are additional behaviours of the Cascade that are not automatically inherited through the use of Projectile.aiStyle.
+
 		// When we hit an NPC, there is a 1 in 3 chance of applying the On Fire debuff to them for 1 to 4 seconds.
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
 			if (Main.rand.NextBool(3)) {
 				target.AddBuff(BuffID.OnFire, Main.rand.Next(60, 240));
+			}
+		}
+
+		// The Cascade releases glowing dust particles, so let's include that as well
+		public override void PostAI() {
+			if (Main.rand.NextBool(6)) { // Every frame has a 1 in 6 chance to release a dust particle
+				int fireDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
+				Main.dust[fireDust].noGravity = true;
 			}
 		}
 	}
